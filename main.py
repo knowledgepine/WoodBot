@@ -20,13 +20,16 @@ test_group = bot.groups().search("TestWoodBot")# 进行测试的群
 
 api_key='bb535760f2ee44049193d76df708299d'
 def getFriendByNickName(nick_name):
+    """ get the friend object by their nick name (not wechat id) and avoid errors
+    when friend is not found        
+    """
     f = bot.friends().search(nick_name)
-    if f is not Null:
+    if f is not None or len(f) == 0:
         return f[0]
     else:
         return ''
 
-yimingchen = getFriendByNickName('Yiming Chen')
+yimingchen = getFriendByNickName("Yiming Chen")
 junsong = getFriendByNickName('Junsong')
 jijiji = getFriendByNickName('季几集')
 woodlovepecker = getFriendByNickName('WoodLovePecker')
@@ -36,7 +39,7 @@ woodlovepecker = getFriendByNickName('WoodLovePecker')
 #jijiji = bot.friends().search('季几集')[0]
 #woodLovePecker = bot.friends().search('WoodLovePecker')[0]
 
-whitelist = [yiming_chen, junsong, jijiji, woodlovepecker]
+whitelist = [yimingchen, junsong, jijiji, woodlovepecker]
 
 
 plugins = [HelpResponder(), TulingReplyer(api_key=api_key, whitelist=whitelist)]
